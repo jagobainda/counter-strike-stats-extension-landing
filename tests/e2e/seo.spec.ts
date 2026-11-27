@@ -124,7 +124,7 @@ test.describe("home", () => {
         expect([SITE, CANONICAL]).toContain(website.url);
 
         const app = byType("SoftwareApplication");
-        const person = { "@type": "Person", name: "Jagoba", url: AUTHOR };
+        const person = { "@type": "Person", name: "jagobainda", url: AUTHOR };
         expect(app).toMatchObject({
             name: content.heading,
             description: expect.stringMatching(/\S/),

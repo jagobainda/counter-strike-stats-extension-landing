@@ -12,9 +12,9 @@ const link =
     "inline-flex min-h-6 items-center gap-2 underline decoration-(--line) underline-offset-4 hover:decoration-(--ink)";
 ---
 
-<footer class="flex flex-wrap items-center gap-x-6 border-t border-(--ink) pt-[calc(var(--gutter)/2)] text-xs text-(--ink-2)">
+<footer class="flex flex-wrap items-center gap-x-4 sm:gap-x-6 border-t border-(--ink) pt-[calc(var(--gutter)/2)] text-xs text-(--ink-2)">
     <a href={footer.source.href} {...external} class:list={[link, "font-mono font-semibold text-(--ink) uppercase"]}>
-        <Icon name="simple-icons:github" aria-hidden="true" class="size-3.5" />
+        <Icon name="simple-icons:github" aria-hidden="true" class="size-3.5 max-[22rem]:hidden!" />
         {footer.source.label}
     </a>
     <span class="inline-flex items-center gap-[1ch] font-mono font-semibold text-(--ink) uppercase">

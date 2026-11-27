@@ -1,5 +1,4 @@
 ---
-import { Icon } from "astro-icon/components";
 import type { HomeData } from "../../lib/types";
 import ButtonLink from "../ui/ButtonLink.astro";
 import Label from "../ui/Label.astro";
@@ -17,10 +16,7 @@ const icons = { chrome: "simple-icons:googlechrome", firefox: "simple-icons:fire
 <div class="hero @container flex min-h-0 flex-col [grid-area:hero]">
     <div class="wordmark relative border border-(--ink)" data-animate="rise">
         <div class="corner flex justify-between gap-4" aria-hidden="true">
-            <Label class="flex items-center gap-2">
-                <Icon name="asterisk" class="size-3 text-(--red)" />
-                {labels.kind}
-            </Label>
+            <Label>{labels.kind}</Label>
             <Label>{labels.platforms}</Label>
         </div>
         <h1 class="font-display leading-[0.95] tracking-[-0.02em] lowercase">{page.heading}</h1>

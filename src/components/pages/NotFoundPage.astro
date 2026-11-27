@@ -5,7 +5,6 @@ import SiteHeader from "../sections/SiteHeader.astro";
 import ButtonLink from "../ui/ButtonLink.astro";
 import Label from "../ui/Label.astro";
 import RegMarks from "../ui/RegMarks.astro";
-import { Icon } from "astro-icon/components";
 
 interface Props {
     page: PageData;
@@ -21,10 +20,7 @@ const { page, home } = Astro.props;
         class="@container relative grid w-full max-w-3xl gap-[clamp(0.5rem,3dvh,1.5rem)] border border-(--ink) p-[clamp(0.75rem,4dvh,3rem)]"
         data-animate="rise"
     >
-        <Label class="flex items-center gap-2">
-            <Icon name="asterisk" aria-hidden="true" class="size-3 text-(--red)" />
-            {page.labels.code}
-        </Label>
+        <Label>{page.labels.code}</Label>
         <h1 class="font-display text-[clamp(1.75rem,min(8vw,12dvh),5rem)] leading-[0.95] tracking-[-0.02em] lowercase">
             {page.heading}
         </h1>

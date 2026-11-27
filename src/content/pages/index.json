@@ -32,12 +32,12 @@
             "href": "https://github.com/jagobainda/CounterStrikeStatsExtension"
         },
         "authorPrefix": "Made by",
-        "author": { "label": "Jagoba", "href": "https://jagoba.dev" },
+        "author": { "label": "jagobainda", "href": "https://jagoba.dev" },
         "disclaimer": "Counter-Strike Stats is not affiliated with Valve, csstats.gg, FACEIT or Leetify."
     },
     "labels": {
         "logoAlt": "Counter-Strike Stats logo",
-        "brand": "CS Stats",
+        "brand": "Counter-Strike Stats",
         "kind": "Browser extension",
         "platforms": "Chrome · Firefox",
         "version": "V 3.0.0",
