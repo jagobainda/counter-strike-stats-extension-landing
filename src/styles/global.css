@@ -48,7 +48,9 @@
 }
 
 /* astro-icon renders inline SVGs; keep them aligned with the text baseline. */
-svg[data-icon] {
-    display: inline-block;
-    vertical-align: -0.125em;
+@layer base {
+    svg[data-icon] {
+        display: inline-block;
+        vertical-align: -0.125em;
+    }
 }

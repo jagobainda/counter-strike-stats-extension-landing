@@ -82,22 +82,26 @@ const icons = {
     </div>
 </div>
 
-<script>
-    type UAData = { brands: { brand: string }[] };
-    const brands = (navigator as Navigator & { userAgentData?: UAData }).userAgentData?.brands.map(b => b.brand) ?? [];
-    const ua = navigator.userAgent;
-    const browser =
-        "brave" in navigator
-            ? "brave"
-            : brands.includes("Opera GX")
-              ? "operagx"
-              : ua.includes("OPR/")
-                ? "opera"
-                : ua.includes("Edg/")
-                  ? "edge"
-                  : null;
-    const variant = document.querySelector<HTMLTemplateElement>(`template[data-variant="${browser}"]`);
-    variant?.parentElement?.replaceChildren(variant.content);
+<!-- Inline so the label is swapped before the first paint. Mobile browsers cannot install store extensions. -->
+<script is:inline>
+    {
+        const ua = navigator.userAgent;
+        const uaData = navigator.userAgentData;
+        const browser =
+            uaData?.mobile || /Mobi|Android/.test(ua)
+                ? null
+                : "brave" in navigator
+                  ? "brave"
+                  : uaData?.brands.some(b => b.brand === "Opera GX")
+                    ? "operagx"
+                    : ua.includes("OPR/")
+                      ? "opera"
+                      : ua.includes("Edg/")
+                        ? "edge"
+                        : null;
+        const variant = browser && document.querySelector(`template[data-variant="${browser}"]`);
+        if (variant) variant.parentElement.replaceChildren(variant.content);
+    }
 </script>
 
 <style>
