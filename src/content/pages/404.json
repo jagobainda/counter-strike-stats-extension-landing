@@ -1,5 +1,7 @@
 {
-    "title": "404",
-    "description": "Page not found",
-    "noindex": true
+    "title": "Page not found – Counter-Strike Stats",
+    "description": "This page does not exist. Go back to Counter-Strike Stats, the browser extension that shows CS2 stats on Steam profiles.",
+    "heading": "Page not found",
+    "noindex": true,
+    "labels": { "back": "Back to Counter-Strike Stats" }
 }

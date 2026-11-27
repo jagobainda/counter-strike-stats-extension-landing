@@ -1,23 +1,22 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
-// Content Collections (Astro 5+): typed, Zod-validated content.
-//
-// Canonical pattern: per-route page-level copy (title, description, heading,
-// noindex) lives in the `pages` collection, NOT in the route's frontmatter.
-// One JSON per route at src/content/pages/<route>.json, schema-validated by
-// Zod; the page reads it with getEntry("pages", "<route>") and passes the
-// fields straight to BaseLayout. This is the i18n swap point: when locales
-// land, only the loader / schema change — pages stay untouched.
+const link = z.object({ label: z.string(), href: z.string().url() });
 
 const pages = defineCollection({
     loader: glob({ pattern: "**/*.json", base: "./src/content/pages" }),
     schema: z.object({
-        // TODO: add the fields every page should carry. Common starters:
-        // title: z.string(),
-        // description: z.string(),
-        // heading: z.string().optional(),
-        // noindex: z.boolean().optional().default(false),
+        title: z.string(),
+        description: z.string(),
+        heading: z.string(),
+        noindex: z.boolean().default(false),
+        subtitle: z.string().optional(),
+        sources: z.string().optional(),
+        install: z.array(link.extend({ browser: z.enum(["chrome", "firefox"]) })).optional(),
+        screenshot: z.object({ alt: z.string(), caption: z.string() }).optional(),
+        features: z.array(z.object({ name: z.string(), text: z.string() })).optional(),
+        footer: z.object({ source: link, authorPrefix: z.string(), author: link, disclaimer: z.string() }).optional(),
+        labels: z.record(z.string(), z.string()).default({}),
     }),
 });
 
