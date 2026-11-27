@@ -4,9 +4,11 @@ import { Icon } from "astro-icon/components";
 
 interface Props extends HTMLAttributes<"a"> {
     icon?: string;
+    variants?: { id: string; icon: string; label: string }[];
 }
 
-const { icon, class: className, ...attrs } = Astro.props;
+const { icon, variants, class: className, ...attrs } = Astro.props;
+const iconClass = "size-4 shrink-0";
 ---
 
 <a
@@ -17,6 +19,12 @@ const { icon, class: className, ...attrs } = Astro.props;
         className,
     ]}
 >
-    {icon ? <Icon name={icon} aria-hidden="true" class="size-4 shrink-0" /> : <span class="size-2.5 bg-(--red)" />}
+    {icon ? <Icon name={icon} aria-hidden="true" class={iconClass} /> : <span class="size-2.5 bg-(--red)" />}
     <slot />
+    {variants?.map(variant => (
+        <template data-variant={variant.id}>
+            <Icon name={variant.icon} aria-hidden="true" class={iconClass} />
+            {variant.label}
+        </template>
+    ))}
 </a>

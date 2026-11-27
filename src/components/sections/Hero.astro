@@ -10,7 +10,14 @@ interface Props {
 
 const { page } = Astro.props;
 const { labels } = page;
-const icons = { chrome: "simple-icons:googlechrome", firefox: "simple-icons:firefoxbrowser" };
+const icons = {
+    chrome: "simple-icons:googlechrome",
+    firefox: "simple-icons:firefoxbrowser",
+    brave: "simple-icons:brave",
+    edge: "simple-icons:microsoftedge",
+    opera: "simple-icons:opera",
+    operagx: "simple-icons:operagx",
+};
 ---
 
 <div class="hero @container flex min-h-0 flex-col [grid-area:hero]">
@@ -44,7 +51,12 @@ const icons = { chrome: "simple-icons:googlechrome", firefox: "simple-icons:fire
                     rel="noopener noreferrer"
                     data-testid={`install-${store.browser}`}
                     icon={icons[store.browser]}
-                    class="text-center whitespace-nowrap @max-[19rem]:whitespace-normal"
+                    variants={store.variants?.map(({ browser, label }) => ({
+                        id: browser,
+                        icon: icons[browser],
+                        label,
+                    }))}
+                    class="text-center whitespace-nowrap @max-[19rem]:whitespace-normal @max-[20rem]:gap-2 @max-[20rem]:tracking-[0.06em]"
                 >
                     {store.label}
                 </ButtonLink>
@@ -69,6 +81,24 @@ const icons = { chrome: "simple-icons:googlechrome", firefox: "simple-icons:fire
         <Label class="text-(--ink-2)">{labels.noise}</Label>
     </div>
 </div>
+
+<script>
+    type UAData = { brands: { brand: string }[] };
+    const brands = (navigator as Navigator & { userAgentData?: UAData }).userAgentData?.brands.map(b => b.brand) ?? [];
+    const ua = navigator.userAgent;
+    const browser =
+        "brave" in navigator
+            ? "brave"
+            : brands.includes("Opera GX")
+              ? "operagx"
+              : ua.includes("OPR/")
+                ? "opera"
+                : ua.includes("Edg/")
+                  ? "edge"
+                  : null;
+    const variant = document.querySelector<HTMLTemplateElement>(`template[data-variant="${browser}"]`);
+    variant?.parentElement?.replaceChildren(variant.content);
+</script>
 
 <style>
     .wordmark {

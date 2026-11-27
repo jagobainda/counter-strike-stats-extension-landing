@@ -12,7 +12,16 @@ const pages = defineCollection({
         noindex: z.boolean().default(false),
         subtitle: z.string().optional(),
         sources: z.string().optional(),
-        install: z.array(link.extend({ browser: z.enum(["chrome", "firefox"]) })).optional(),
+        install: z
+            .array(
+                link.extend({
+                    browser: z.enum(["chrome", "firefox"]),
+                    variants: z
+                        .array(z.object({ browser: z.enum(["brave", "edge", "opera", "operagx"]), label: z.string() }))
+                        .optional(),
+                }),
+            )
+            .optional(),
         screenshot: z.object({ alt: z.string(), caption: z.string() }).optional(),
         features: z.array(z.object({ name: z.string(), text: z.string() })).optional(),
         footer: z.object({ source: link, authorPrefix: z.string(), author: link, disclaimer: z.string() }).optional(),

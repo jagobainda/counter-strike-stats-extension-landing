@@ -8,7 +8,13 @@
         {
             "browser": "chrome",
             "label": "Add to Chrome",
-            "href": "https://chromewebstore.google.com/detail/nklafihgaifhoahbfcfiaemfmpoplkch"
+            "href": "https://chromewebstore.google.com/detail/nklafihgaifhoahbfcfiaemfmpoplkch",
+            "variants": [
+                { "browser": "brave", "label": "Add to Brave" },
+                { "browser": "edge", "label": "Add to Edge" },
+                { "browser": "opera", "label": "Add to Opera" },
+                { "browser": "operagx", "label": "Add to Opera GX" }
+            ]
         },
         {
             "browser": "firefox",
