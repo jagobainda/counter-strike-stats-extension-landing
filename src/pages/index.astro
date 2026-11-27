@@ -2,6 +2,7 @@
 import { getImage } from "astro:assets";
 import { getEntry } from "astro:content";
 import screenshot from "../assets/counter-strike-stats-1.png";
+import screenshot2 from "../assets/counter-strike-stats-2.png";
 import IndexPage from "../components/pages/IndexPage.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { homeGraph } from "../lib/seo";
@@ -10,14 +11,16 @@ import { isHomeData } from "../lib/types";
 const page = await getEntry("pages", "index");
 if (!page || !isHomeData(page.data)) throw new Error("Missing home fields in src/content/pages/index.json");
 
-const { src: screenshotPath } = await getImage({ src: screenshot, width: 1280, format: "webp" });
+const screenshotPaths = await Promise.all(
+    [screenshot, screenshot2].map(async src => (await getImage({ src, width: 1280, format: "webp" })).src),
+);
 ---
 
 <BaseLayout
     title={page.data.title}
     description={page.data.description}
     ogImageAlt={page.data.labels.ogImageAlt}
-    jsonLd={homeGraph(page.data, screenshotPath)}
+    jsonLd={homeGraph(page.data, screenshotPaths)}
 >
     <IndexPage page={page.data} />
 </BaseLayout>

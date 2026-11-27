@@ -1,6 +1,6 @@
 ---
 import { Font } from "astro:assets";
-import { OG_IMAGE, SITE_NAME, THEME_COLOR, absoluteUrl } from "../lib/seo";
+import { OG_IMAGE, SITE_NAME, THEME_COLOR, absoluteUrl, jsonLdHtml } from "../lib/seo";
 
 interface Props {
     title: string;
@@ -68,10 +68,10 @@ const ogImageURL = absoluteUrl(OG_IMAGE.path);
                 document.documentElement.dataset.motion = "run";
         </script>
 
-        {jsonLd && <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />}
+        {jsonLd && <script type="application/ld+json" is:inline set:html={jsonLdHtml(jsonLd)} />}
     </head>
 
-    <body class="grid h-[100vh] grid-rows-[auto_minmax(0,1fr)_auto] bg-(--bg) p-(--gutter) font-sans text-(--ink) antialiased supports-[height:100dvh]:h-dvh">
+    <body class="grid h-screen grid-rows-[auto_minmax(0,1fr)_auto] bg-(--bg) p-(--gutter) font-sans text-(--ink) antialiased supports-[height:100dvh]:h-dvh">
         <slot />
     </body>
 </html>

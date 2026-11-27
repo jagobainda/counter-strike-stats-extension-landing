@@ -8,7 +8,8 @@ interface Props {
 
 const { footer } = Astro.props;
 const external = { target: "_blank", rel: "noopener noreferrer" };
-const link = "inline-flex min-h-6 items-center gap-2 underline-offset-4 hover:underline";
+const link =
+    "inline-flex min-h-6 items-center gap-2 underline decoration-(--line) underline-offset-4 hover:decoration-(--ink)";
 ---
 
 <footer class="flex flex-wrap items-center gap-x-6 border-t border-(--ink) pt-[calc(var(--gutter)/2)] text-xs text-(--ink-2)">

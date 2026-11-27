@@ -1,4 +1,4 @@
-import { animate, createTimeline, spring, stagger, utils } from "animejs";
+import { animate, createTimeline, spring, stagger, utils, type JSAnimation } from "animejs";
 
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -15,6 +15,7 @@ export function playEntrance() {
         .add("[data-animate=rise]", { opacity: [0, 1], y: [12, 0], ease: settle(300), delay: stagger(30) }, 0);
 
     function finish() {
+        reducedMotion.removeEventListener("change", finish);
         root.dataset.motion = "done";
         entrance.pause();
         utils.cleanInlineStyles(entrance);
@@ -25,16 +26,34 @@ export function playEntrance() {
 
 export function pressFeedback() {
     for (const target of document.querySelectorAll<HTMLElement>("[data-press]")) {
+        let pressed = false;
+        let active: JSAnimation | undefined;
+
         const scaleTo = (scale: number, duration: number) => {
-            if (reducedMotion.matches) return;
-            animate(target, {
+            active?.cancel();
+            active = animate(target, {
                 scale,
                 ease: settle(duration),
                 onComplete: () => scale === 1 && target.style.removeProperty("transform"),
             });
         };
-        target.addEventListener("pointerdown", () => scaleTo(0.97, 120));
+
+        target.addEventListener("pointerdown", () => {
+            if (reducedMotion.matches) return;
+            pressed = true;
+            scaleTo(0.97, 120);
+        });
         for (const type of ["pointerup", "pointerleave", "pointercancel"])
-            target.addEventListener(type, () => scaleTo(1, 380));
+            target.addEventListener(type, () => {
+                if (!pressed) return;
+                pressed = false;
+                scaleTo(1, 380);
+            });
+        reducedMotion.addEventListener("change", () => {
+            if (!reducedMotion.matches) return;
+            active?.cancel();
+            pressed = false;
+            target.style.removeProperty("transform");
+        });
     }
 }

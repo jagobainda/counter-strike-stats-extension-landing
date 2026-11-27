@@ -18,8 +18,20 @@ test.describe("with prefers-reduced-motion: reduce", () => {
 test.describe("without motion preference", () => {
     test.use({ reducedMotion: "no-preference" });
 
-    test("finishes the entrance animations in their final state", async ({ page }) => {
+    test("runs the entrance animations and finishes them in their final state", async ({ page }) => {
+        await page.addInitScript(() => {
+            const states: string[] = [];
+            Object.assign(window, { motionStates: states });
+            new MutationObserver(() => states.push(document.documentElement.dataset.motion ?? "")).observe(document, {
+                attributeFilter: ["data-motion"],
+                subtree: true,
+            });
+        });
         await gotoReady(page);
+        expect(await page.evaluate(() => (window as Window & { motionStates?: string[] }).motionStates)).toEqual([
+            "run",
+            "done",
+        ]);
         expect(await finalStateIssues(page)).toEqual([]);
     });
 });

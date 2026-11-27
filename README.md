@@ -29,7 +29,7 @@ Run `npx playwright install` once before the first `test:e2e`.
 
 ```
 public/                 robots.txt, manifest.webmanifest, imgs/ (favicons, og-image.png)
-src/assets/             logo and extension screenshots (optimised by astro:assets)
+src/assets/             logo and the two extension screenshots (hero image and JSON-LD screenshots, optimised by astro:assets)
 src/content/pages/      all page copy (index.json, 404.json), schema in src/content.config.ts
 src/components/         pages/ (IndexPage, NotFoundPage), sections/, ui/
 src/layouts/            BaseLayout.astro (head, SEO, Open Graph, JSON-LD)

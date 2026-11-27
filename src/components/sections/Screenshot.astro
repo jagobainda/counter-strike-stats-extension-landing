@@ -18,8 +18,8 @@ const { page } = Astro.props;
             <Image
                 src={screenshot}
                 alt={page.screenshot.alt}
-                widths={[480, 800, 1280]}
-                sizes="(min-aspect-ratio: 1/1) 55vw, 100vw"
+                widths={[480, 640, 800, 1280]}
+                sizes="(min-aspect-ratio: 1/1) 50vw, 85vw"
                 priority
                 class="size-full"
             />

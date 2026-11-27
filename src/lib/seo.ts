@@ -10,7 +10,10 @@ const APP_VERSION = "3.0.0";
 
 export const absoluteUrl = (path: string) => new URL(path, SITE_URL).href;
 
-export function homeGraph(page: HomeData, screenshotPath: string) {
+// Escapes "<" so no string in the data can close the inline <script>.
+export const jsonLdHtml = (data: object) => JSON.stringify(data).replace(/</g, "\\u003c");
+
+export function homeGraph(page: HomeData, screenshotPaths: string[]) {
     const stores = page.install.map(store => store.href);
     const author = { "@type": "Person", name: page.footer.author.label, url: page.footer.author.href };
 
@@ -29,7 +32,7 @@ export function homeGraph(page: HomeData, screenshotPath: string) {
                 installUrl: stores,
                 softwareVersion: APP_VERSION,
                 image: absoluteUrl(APP_ICON),
-                screenshot: absoluteUrl(screenshotPath),
+                screenshot: screenshotPaths.map(absoluteUrl),
                 license: "https://opensource.org/licenses/MIT",
                 isAccessibleForFree: true,
                 author,
