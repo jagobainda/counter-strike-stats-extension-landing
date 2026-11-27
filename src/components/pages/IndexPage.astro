@@ -47,7 +47,14 @@ const { page } = Astro.props;
         .home {
             grid-template:
                 "hero shot" minmax(0, 1fr)
-                "hero features" auto / minmax(0, 1fr) minmax(0, 1fr);
+                "features features" auto / minmax(0, 1fr) minmax(0, 1fr);
+        }
+    }
+
+    /* Too short for a features row: the features move under the screenshot. */
+    @media (min-aspect-ratio: 1/1) and (max-height: 370px) {
+        .home {
+            grid-template-areas: "hero shot" "hero features";
         }
     }
 </style>

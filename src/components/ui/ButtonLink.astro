@@ -13,7 +13,7 @@ const { icon, class: className, ...attrs } = Astro.props;
     {...attrs}
     data-press
     class:list={[
-        "inline-flex min-h-10 items-center justify-center gap-2.5 bg-(--ink) px-3 font-mono text-xs font-semibold tracking-[0.1em] text-(--bg) uppercase transition-[color,background-color] duration-150 ease-out hover:bg-(--red-deep) hover:text-(--paper) sm:min-h-12 sm:px-5 sm:text-[0.8125rem]",
+        "inline-flex min-h-10 items-center justify-center gap-2.5 bg-(--ink) px-3 font-mono text-xs font-semibold tracking-[0.1em] text-(--bg) uppercase transition-[color,background-color] duration-150 ease-out hover:bg-(--red-deep) hover:text-(--paper) @sm:min-h-12 @sm:px-5 @sm:text-[0.8125rem]",
         className,
     ]}
 >

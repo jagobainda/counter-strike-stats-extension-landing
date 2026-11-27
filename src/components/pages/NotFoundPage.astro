@@ -18,7 +18,7 @@ const { page, home } = Astro.props;
 <SiteHeader labels={home.labels} />
 <main class="grid min-h-0 place-items-center py-(--gutter)">
     <div
-        class="relative grid w-full max-w-3xl gap-[clamp(0.5rem,3dvh,1.5rem)] border border-(--ink) p-[clamp(0.75rem,4dvh,3rem)]"
+        class="@container relative grid w-full max-w-3xl gap-[clamp(0.5rem,3dvh,1.5rem)] border border-(--ink) p-[clamp(0.75rem,4dvh,3rem)]"
         data-animate="rise"
     >
         <Label class="flex items-center gap-2">

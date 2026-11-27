@@ -45,24 +45,30 @@ const icons = { chrome: "simple-icons:googlechrome", firefox: "simple-icons:fire
                     rel="noopener noreferrer"
                     data-testid={`install-${store.browser}`}
                     icon={icons[store.browser]}
-                    class="whitespace-nowrap"
+                    class="text-center whitespace-nowrap @max-[19rem]:whitespace-normal"
                 >
                     {store.label}
                 </ButtonLink>
             ))}
         </div>
     </div>
-    <svg class="texture min-h-0 flex-1 border border-(--line)" aria-hidden="true">
-        <filter id="veins" x="0" y="0" width="100%" height="100%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="4" seed="7"></feTurbulence>
-            <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 0 0 0 0"></feColorMatrix>
-            <feComponentTransfer>
-                <feFuncA type="discrete" tableValues="0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0"></feFuncA>
-            </feComponentTransfer>
-        </filter>
-        <rect width="100%" height="100%" class="fill-(--paper)"></rect>
-        <rect width="100%" height="100%" filter="url(#veins)"></rect>
-    </svg>
+    <div
+        class="texture grid min-h-0 flex-1 grid-cols-[auto_minmax(0,1fr)] content-start items-end gap-3 border-t border-(--line) pt-(--gutter)"
+        aria-hidden="true"
+    >
+        <svg class="border border-(--line)">
+            <filter id="veins" x="0" y="0" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="4" seed="7"></feTurbulence>
+                <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 0 0 0 0"></feColorMatrix>
+                <feComponentTransfer>
+                    <feFuncA type="discrete" tableValues="0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0"></feFuncA>
+                </feComponentTransfer>
+            </filter>
+            <rect width="100%" height="100%" class="fill-(--paper)"></rect>
+            <rect width="100%" height="100%" filter="url(#veins)"></rect>
+        </svg>
+        <Label class="text-(--ink-2)">{labels.noise}</Label>
+    </div>
 </div>
 
 <style>
@@ -86,6 +92,16 @@ const icons = { chrome: "simple-icons:googlechrome", firefox: "simple-icons:fire
         line-height: 1.3;
         letter-spacing: -0.01em;
         text-wrap: balance;
+    }
+
+    .texture {
+        container-type: size;
+    }
+
+    /* Small 15:8 figure (≤ 40% of the column, ≤ 22vh): Cybercore keeps high-frequency noise contained. */
+    .texture svg {
+        width: min(40cqw, 187.5cqh, 41.25vh);
+        aspect-ratio: 15 / 8;
     }
 
     @media (max-aspect-ratio: 1/1), (max-height: 640px) {

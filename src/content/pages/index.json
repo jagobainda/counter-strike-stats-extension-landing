@@ -45,6 +45,7 @@
         "license": "MIT",
         "figure": "FIG.01",
         "resolution": "1280 × 800",
+        "noise": "FIG.02 — 1-bit noise",
         "ogImageAlt": "Counter-Strike Stats logo and title next to a Steam profile showing csstats.gg, FACEIT and Leetify stats"
     }
 }

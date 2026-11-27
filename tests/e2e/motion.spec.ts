@@ -28,7 +28,9 @@ test.describe("without JavaScript", () => {
     test.use({ javaScriptEnabled: false });
 
     test("renders the content in its final state", async ({ page }) => {
-        await gotoReady(page);
+        // Not gotoReady: awaiting document.fonts.ready hangs in Firefox when JavaScript is disabled.
+        await page.goto("/");
+        await expect(page.locator("html")).toHaveAttribute("data-motion", "done");
         expect(await finalStateIssues(page)).toEqual([]);
     });
 });

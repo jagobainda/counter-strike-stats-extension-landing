@@ -47,7 +47,18 @@ for (const viewport of VIEWPORTS) {
                 const hasContent =
                     el.matches("a, img") ||
                     [...el.childNodes].some(node => node.nodeType === Node.TEXT_NODE && node.textContent?.trim());
-                if (!hasContent || getComputedStyle(el).pointerEvents === "none") continue;
+                if (!hasContent) continue;
+
+                for (const node of el.childNodes) {
+                    if (node.nodeType !== Node.TEXT_NODE || !node.textContent?.trim()) continue;
+                    const range = document.createRange();
+                    range.selectNodeContents(node);
+                    const text = range.getBoundingClientRect();
+                    if (text.left < box.left - tolerance || text.right > box.right + tolerance)
+                        found.push(`${name(el)} text overflows its box horizontally`);
+                }
+
+                if (getComputedStyle(el).pointerEvents === "none") continue;
 
                 for (const rect of el.getClientRects()) {
                     const inset = Math.min(2, rect.width / 4, rect.height / 4);
