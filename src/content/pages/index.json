@@ -37,7 +37,6 @@
     },
     "labels": {
         "logoAlt": "Counter-Strike Stats logo",
-        "brand": "Counter-Strike Stats",
         "kind": "Browser extension",
         "platforms": "Chrome · Firefox",
         "version": "V 3.0.0",
