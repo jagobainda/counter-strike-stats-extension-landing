@@ -10,6 +10,10 @@ dist/
 .vercel/
 .netlify/
 
+# Playwright output
+test-results/
+playwright-report/
+
 # Generated / lockfiles
 package-lock.json
 pnpm-lock.yaml

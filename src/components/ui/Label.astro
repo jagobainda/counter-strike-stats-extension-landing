@@ -1,0 +1,11 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"span">;
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<span {...attrs} class:list={["font-mono text-xs font-semibold tracking-[0.12em] uppercase", className]}>
+    <slot />
+</span>

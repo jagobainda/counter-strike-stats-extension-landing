@@ -34,5 +34,17 @@
         "authorPrefix": "Made by",
         "author": { "label": "Jagoba", "href": "https://jagoba.dev" },
         "disclaimer": "Counter-Strike Stats is not affiliated with Valve, csstats.gg, FACEIT or Leetify."
+    },
+    "labels": {
+        "logoAlt": "Counter-Strike Stats logo",
+        "brand": "CS Stats",
+        "kind": "Browser extension",
+        "platforms": "Chrome · Firefox",
+        "version": "V 3.0.0",
+        "index": "[ 01 / 01 ]",
+        "license": "MIT",
+        "figure": "FIG.01",
+        "resolution": "1280 × 800",
+        "ogImageAlt": "Counter-Strike Stats logo and title next to a Steam profile showing csstats.gg, FACEIT and Leetify stats"
     }
 }

@@ -1,0 +1,53 @@
+---
+import type { HomeData } from "../../lib/types";
+import Features from "../sections/Features.astro";
+import Hero from "../sections/Hero.astro";
+import Screenshot from "../sections/Screenshot.astro";
+import SiteFooter from "../sections/SiteFooter.astro";
+import SiteHeader from "../sections/SiteHeader.astro";
+
+interface Props {
+    page: HomeData;
+}
+
+const { page } = Astro.props;
+---
+
+<SiteHeader labels={page.labels} />
+<main class="home grid min-h-0">
+    <Hero page={page} />
+    <Screenshot page={page} />
+    <Features features={page.features} />
+</main>
+<SiteFooter footer={page.footer} />
+
+<script>
+    import { playEntrance, pressFeedback } from "../../scripts/animations";
+
+    playEntrance();
+    pressFeedback();
+</script>
+
+<style>
+    .home {
+        grid-template: "hero" auto "shot" minmax(0, 1fr) "features" auto / minmax(0, 1fr);
+        column-gap: clamp(1rem, 2.5vw, 3rem);
+        padding-block: calc(var(--gutter) / 2);
+    }
+
+    @media (min-aspect-ratio: 1/1) and (min-width: 600px) {
+        .home {
+            grid-template:
+                "hero shot" minmax(0, 1fr)
+                "features features" auto / minmax(0, 5fr) minmax(0, 6fr);
+        }
+    }
+
+    @media (min-aspect-ratio: 1/1) and (max-height: 699px) {
+        .home {
+            grid-template:
+                "hero shot" minmax(0, 1fr)
+                "hero features" auto / minmax(0, 1fr) minmax(0, 1fr);
+        }
+    }
+</style>

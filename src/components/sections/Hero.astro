@@ -1,0 +1,102 @@
+---
+import { Icon } from "astro-icon/components";
+import type { HomeData } from "../../lib/types";
+import ButtonLink from "../ui/ButtonLink.astro";
+import Label from "../ui/Label.astro";
+import RegMarks from "../ui/RegMarks.astro";
+
+interface Props {
+    page: HomeData;
+}
+
+const { page } = Astro.props;
+const { labels } = page;
+const icons = { chrome: "simple-icons:googlechrome", firefox: "simple-icons:firefoxbrowser" };
+---
+
+<div class="hero @container flex min-h-0 flex-col [grid-area:hero]">
+    <div class="wordmark relative border border-(--ink)" data-animate="rise">
+        <div class="corner flex justify-between gap-4" aria-hidden="true">
+            <Label class="flex items-center gap-2">
+                <Icon name="asterisk" class="size-3 text-(--red)" />
+                {labels.kind}
+            </Label>
+            <Label>{labels.platforms}</Label>
+        </div>
+        <h1 class="font-display leading-[0.95] tracking-[-0.02em] lowercase">{page.heading}</h1>
+        <div class="corner flex justify-between gap-4" aria-hidden="true">
+            <Label>{labels.index}</Label>
+            <Label>{labels.license}</Label>
+        </div>
+        <RegMarks />
+    </div>
+    <div class="lead flex flex-col">
+        <p class="subtitle font-medium" data-testid="subtitle" data-animate="rise">
+            {page.subtitle}
+        </p>
+        <p class="font-mono text-xs font-medium tracking-[0.08em] text-(--ink-2) sm:text-sm" data-animate="rise">
+            {page.sources}
+        </p>
+        <div class="grid grid-cols-2 gap-2" data-animate="rise">
+            {page.install.map(store => (
+                <ButtonLink
+                    href={store.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid={`install-${store.browser}`}
+                    icon={icons[store.browser]}
+                    class="whitespace-nowrap"
+                >
+                    {store.label}
+                </ButtonLink>
+            ))}
+        </div>
+    </div>
+    <svg class="texture min-h-0 flex-1 border border-(--line)" aria-hidden="true">
+        <filter id="veins" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="4" seed="7"></feTurbulence>
+            <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 0 0 0 0"></feColorMatrix>
+            <feComponentTransfer>
+                <feFuncA type="discrete" tableValues="0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0"></feFuncA>
+            </feComponentTransfer>
+        </filter>
+        <rect width="100%" height="100%" class="fill-(--paper)"></rect>
+        <rect width="100%" height="100%" filter="url(#veins)"></rect>
+    </svg>
+</div>
+
+<style>
+    .wordmark {
+        display: grid;
+        gap: clamp(0.25rem, 1.5dvh, 1.5rem);
+        padding: clamp(0.375rem, 3dvh - 0.75rem, 1.75rem) clamp(0.625rem, 3cqi, 2rem);
+    }
+
+    h1 {
+        font-size: clamp(1.625rem, min(10cqi, 11dvh), 8rem);
+    }
+
+    .lead {
+        gap: clamp(0.25rem, 3dvh - 0.75rem, 1.5rem);
+        padding-block: clamp(0.25rem, 4dvh - 1rem, 2.25rem);
+    }
+
+    .subtitle {
+        font-size: clamp(0.9375rem, min(3.6cqi, 3.2dvh), 1.75rem);
+        line-height: 1.3;
+        letter-spacing: -0.01em;
+        text-wrap: balance;
+    }
+
+    @media (max-aspect-ratio: 1/1), (max-height: 640px) {
+        .texture {
+            display: none;
+        }
+    }
+
+    @media (max-height: 700px) {
+        .corner {
+            display: none;
+        }
+    }
+</style>

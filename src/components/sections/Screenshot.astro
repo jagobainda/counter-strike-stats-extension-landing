@@ -1,0 +1,56 @@
+---
+import { Image } from "astro:assets";
+import screenshot from "../../assets/counter-strike-stats-1.png";
+import type { HomeData } from "../../lib/types";
+import Label from "../ui/Label.astro";
+import RegMarks from "../ui/RegMarks.astro";
+
+interface Props {
+    page: HomeData;
+}
+
+const { page } = Astro.props;
+---
+
+<figure data-testid="screenshot" data-animate="scale" class="shot flex min-h-0 flex-col [grid-area:shot]">
+    <div class="frame relative flex min-h-0 flex-1 items-center justify-center border border-(--line)">
+        <div class="relative aspect-[1280/800] w-[min(100cqw,160cqh)] border border-(--ink)">
+            <Image
+                src={screenshot}
+                alt={page.screenshot.alt}
+                widths={[480, 800, 1280]}
+                sizes="(min-aspect-ratio: 1/1) 55vw, 100vw"
+                priority
+                class="size-full"
+            />
+            <span
+                data-scan
+                class="pointer-events-none absolute inset-0 hidden origin-bottom border-t-2 border-(--red) bg-(--panel) in-data-[motion=run]:block"
+            ></span>
+            <RegMarks />
+        </div>
+    </div>
+    <figcaption class="flex items-center justify-between gap-4 pt-2 text-(--ink-2)">
+        <Label class="flex items-center gap-2">
+            <span class="size-2 shrink-0 bg-(--red)"></span>
+            <span class="max-sm:hidden" aria-hidden="true">
+                {page.labels.figure} —
+            </span>
+            {page.screenshot.caption}
+        </Label>
+        <Label class="max-lg:hidden" aria-hidden="true">
+            {page.labels.resolution}
+        </Label>
+    </figcaption>
+</figure>
+
+<style>
+    .frame {
+        container-type: size;
+        padding: clamp(0.25rem, 2.5dvh, 2rem);
+        background-color: var(--panel);
+        background-image:
+            linear-gradient(var(--bg) 1px, transparent 1px), linear-gradient(90deg, var(--bg) 1px, transparent 1px);
+        background-size: 16px 16px;
+    }
+</style>

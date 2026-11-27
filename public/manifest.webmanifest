@@ -1,0 +1,24 @@
+{
+    "name": "Counter-Strike Stats",
+    "short_name": "CS Stats",
+    "description": "Free browser extension that displays Counter-Strike stats directly on Steam profiles: csstats.gg Premier seasons, FACEIT and Leetify stats for CS2 and CS:GO.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#E4E4E1",
+    "theme_color": "#E4E4E1",
+    "icons": [
+        {
+            "src": "/imgs/favicon/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/imgs/favicon/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}

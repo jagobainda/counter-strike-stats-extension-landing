@@ -1,11 +1,19 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
 import { getEntry } from "astro:content";
+import NotFoundPage from "../components/pages/NotFoundPage.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { isHomeData } from "../lib/types";
 
-const page = await getEntry("pages", "404");
+const [page, home] = await Promise.all([getEntry("pages", "404"), getEntry("pages", "index")]);
 if (!page) throw new Error("Missing pages/404 entry — create src/content/pages/404.json");
+if (!home || !isHomeData(home.data)) throw new Error("Missing home fields in src/content/pages/index.json");
 ---
 
-<BaseLayout title={page.data.title} description={page.data.description} noindex={page.data.noindex ?? true}>
-    <main><!-- TODO: implement the 404 page --></main>
+<BaseLayout
+    title={page.data.title}
+    description={page.data.description}
+    ogImageAlt={home.data.labels.ogImageAlt}
+    noindex={page.data.noindex}
+>
+    <NotFoundPage page={page.data} home={home.data} />
 </BaseLayout>

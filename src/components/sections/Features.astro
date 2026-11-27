@@ -1,0 +1,75 @@
+---
+import type { HomeData } from "../../lib/types";
+
+interface Props {
+    features: HomeData["features"];
+}
+
+const { features } = Astro.props;
+---
+
+<dl data-testid="features" class="features grid [grid-area:features]">
+    {features.map((feature, index) => (
+        <div class="feature" data-animate="rise">
+            <dt class="font-mono text-xs font-semibold tracking-[0.1em] uppercase">
+                <span class="text-(--ink-2)" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                </span>
+                {feature.name}
+            </dt>
+            <dd class="text-(--ink-2)">{feature.text}</dd>
+        </div>
+    ))}
+</dl>
+
+<style>
+    .features {
+        border-top: 1px solid var(--line);
+    }
+
+    .feature {
+        padding-block: clamp(0.125rem, 1.5dvh - 0.375rem, 0.375rem);
+        border-bottom: 1px solid var(--line);
+        font-size: 0.75rem;
+        line-height: 1.35;
+    }
+
+    dt,
+    dd {
+        display: inline;
+    }
+
+    dt {
+        margin-right: 0.75em;
+    }
+
+    dt span {
+        margin-right: 0.5em;
+    }
+
+    @media (min-width: 600px) and (min-height: 700px) {
+        .features {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .feature {
+            display: grid;
+            align-content: start;
+            row-gap: 0.375rem;
+            padding: clamp(0.5rem, 1.6dvh, 1.25rem) clamp(0.5rem, 1.2vw, 1.25rem);
+            border-bottom: 0;
+            border-left: 1px solid var(--line);
+            font-size: clamp(0.75rem, 0.6rem + 0.35vw, 0.9375rem);
+        }
+
+        .feature:first-child {
+            border-left: 0;
+            padding-left: 0;
+        }
+
+        dt,
+        dd {
+            display: block;
+        }
+    }
+</style>

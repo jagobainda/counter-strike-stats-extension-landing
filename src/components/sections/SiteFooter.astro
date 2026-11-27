@@ -1,0 +1,26 @@
+---
+import { Icon } from "astro-icon/components";
+import type { HomeData } from "../../lib/types";
+
+interface Props {
+    footer: HomeData["footer"];
+}
+
+const { footer } = Astro.props;
+const external = { target: "_blank", rel: "noopener noreferrer" };
+const link = "inline-flex min-h-6 items-center gap-2 underline-offset-4 hover:underline";
+---
+
+<footer class="flex flex-wrap items-center gap-x-6 border-t border-(--ink) pt-[calc(var(--gutter)/2)] text-xs text-(--ink-2)">
+    <a href={footer.source.href} {...external} class:list={[link, "font-mono font-semibold text-(--ink) uppercase"]}>
+        <Icon name="simple-icons:github" aria-hidden="true" class="size-3.5" />
+        {footer.source.label}
+    </a>
+    <span class="inline-flex items-center gap-[1ch] font-mono font-semibold text-(--ink) uppercase">
+        {footer.authorPrefix}
+        <a href={footer.author.href} {...external} class={link}>
+            {footer.author.label}
+        </a>
+    </span>
+    <p class="leading-snug lg:ml-auto">{footer.disclaimer}</p>
+</footer>

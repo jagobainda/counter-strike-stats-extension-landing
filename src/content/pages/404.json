@@ -3,5 +3,5 @@
     "description": "This page does not exist. Go back to Counter-Strike Stats, the browser extension that shows CS2 stats on Steam profiles.",
     "heading": "Page not found",
     "noindex": true,
-    "labels": { "back": "Back to Counter-Strike Stats" }
+    "labels": { "back": "Back to Counter-Strike Stats", "code": "Error 404" }
 }
